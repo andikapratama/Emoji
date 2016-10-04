@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/main_activity_root_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context="com.pratamalabs.emoji.sample.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_activity_recycler_view"
@@ -32,7 +32,7 @@
             android:src="@drawable/emoji_people"
             tools:ignore="ContentDescription"/>
 
-        <com.vanniktech.emoji.EmojiEditText
+        <com.pratamalabs.emoji.EmojiEditText
             android:id="@+id/main_activity_chat_bottom_message_edittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -10,7 +10,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.vanniktech.emoji.sample"
+        applicationId "com.pratamalabs.emoji.sample"
         minSdkVersion rootProject.ext.minSdkVersion as int
         targetSdkVersion rootProject.ext.targetSdkVersion as int
         versionCode rootProject.ext.versionCode as int
@@ -58,7 +58,4 @@ dependencies {
     compile rootProject.ext.supportRecyclerView
 
     provided rootProject.ext.findbugsAnnotations
-
-    debugCompile rootProject.ext.leakCanaryDebug
-    releaseCompile rootProject.ext.leakCanaryRelease
 }
