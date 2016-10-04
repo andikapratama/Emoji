@@ -1016,74 +1016,74 @@ final class EmojiHandler {
 
     @SuppressWarnings("PMD.AvoidDeeplyNestedIfStmts")
     public static void addEmojis(final Context context, final Spannable text, final int emojiSize) {
-        final int textLength = text.length();
-
-        // remove spans throughout all text
-        final EmojiSpan[] oldSpans = text.getSpans(0, textLength, EmojiSpan.class);
-        // noinspection ForLoopReplaceableByForEach
-        for (int i = 0; i < oldSpans.length; i++) {
-            text.removeSpan(oldSpans[i]);
-        }
-
-        int skip;
-        for (int i = 0; i < textLength; i += skip) {
-            skip = 0;
-            int icon = 0;
-            final char c = text.charAt(i);
-            if (isSoftBankEmoji(c)) {
-                icon = getSoftbankEmojiResource(c);
-                skip = icon == 0 ? 0 : 1;
-            }
-
-            if (icon == 0) {
-                final int unicode = Character.codePointAt(text, i);
-                skip = Character.charCount(unicode);
-
-                if (unicode > 0xff) {
-                    icon = getEmojiResource(unicode);
-                }
-
-                if (i + skip < textLength) {
-                    final int followUnicode = Character.codePointAt(text, i + skip);
-
-                    if (followUnicode >= 0x1f3fb && followUnicode <=0x1f3ff) {
-                        // Handle skin toned emojis by simply skipping them.
-                        skip += Character.charCount(followUnicode);
-                    } else if (followUnicode == 0xfe0f) {
-                        int followSkip = Character.charCount(followUnicode);
-                        if (i + skip + followSkip < textLength) {
-                            final int nextFollowUnicode = Character.codePointAt(text, i + skip + followSkip);
-                            if (nextFollowUnicode == 0x20e3) {
-                                int nextFollowSkip = Character.charCount(nextFollowUnicode);
-                                final int tempIcon = getKeyCapEmoji(unicode);
-
-                                if (tempIcon == 0) {
-                                    followSkip = 0;
-                                    nextFollowSkip = 0;
-                                } else {
-                                    icon = tempIcon;
-                                }
-                                skip += followSkip + nextFollowSkip;
-                            }
-                        }
-                    } else if (followUnicode == 0x20e3) {
-                        int followSkip = Character.charCount(followUnicode);
-
-                        final int tempIcon = getKeyCapEmoji(unicode);
-                        if (tempIcon == 0) {
-                            followSkip = 0;
-                        } else {
-                            icon = tempIcon;
-                        }
-                        skip += followSkip;
-                    }
-                }
-            }
-
-            if (icon > 0) {
-                text.setSpan(new EmojiSpan(context, icon, emojiSize), i, i + skip, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-        }
+//        final int textLength = text.length();
+//
+//        // remove spans throughout all text
+//        final EmojiSpan[] oldSpans = text.getSpans(0, textLength, EmojiSpan.class);
+//        // noinspection ForLoopReplaceableByForEach
+//        for (int i = 0; i < oldSpans.length; i++) {
+//            text.removeSpan(oldSpans[i]);
+//        }
+//
+//        int skip;
+//        for (int i = 0; i < textLength; i += skip) {
+//            skip = 0;
+//            int icon = 0;
+//            final char c = text.charAt(i);
+//            if (isSoftBankEmoji(c)) {
+//                icon = getSoftbankEmojiResource(c);
+//                skip = icon == 0 ? 0 : 1;
+//            }
+//
+//            if (icon == 0) {
+//                final int unicode = Character.codePointAt(text, i);
+//                skip = Character.charCount(unicode);
+//
+//                if (unicode > 0xff) {
+//                    icon = getEmojiResource(unicode);
+//                }
+//
+//                if (i + skip < textLength) {
+//                    final int followUnicode = Character.codePointAt(text, i + skip);
+//
+//                    if (followUnicode >= 0x1f3fb && followUnicode <=0x1f3ff) {
+//                        // Handle skin toned emojis by simply skipping them.
+//                        skip += Character.charCount(followUnicode);
+//                    } else if (followUnicode == 0xfe0f) {
+//                        int followSkip = Character.charCount(followUnicode);
+//                        if (i + skip + followSkip < textLength) {
+//                            final int nextFollowUnicode = Character.codePointAt(text, i + skip + followSkip);
+//                            if (nextFollowUnicode == 0x20e3) {
+//                                int nextFollowSkip = Character.charCount(nextFollowUnicode);
+//                                final int tempIcon = getKeyCapEmoji(unicode);
+//
+//                                if (tempIcon == 0) {
+//                                    followSkip = 0;
+//                                    nextFollowSkip = 0;
+//                                } else {
+//                                    icon = tempIcon;
+//                                }
+//                                skip += followSkip + nextFollowSkip;
+//                            }
+//                        }
+//                    } else if (followUnicode == 0x20e3) {
+//                        int followSkip = Character.charCount(followUnicode);
+//
+//                        final int tempIcon = getKeyCapEmoji(unicode);
+//                        if (tempIcon == 0) {
+//                            followSkip = 0;
+//                        } else {
+//                            icon = tempIcon;
+//                        }
+//                        skip += followSkip;
+//                    }
+//                }
+//            }
+//
+//            if (icon > 0) {
+//                text.setSpan(new EmojiSpan(context, icon, emojiSize), i, i + skip, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            }
+//        }
     }
 
     private static int getKeyCapEmoji(final int unicode) {

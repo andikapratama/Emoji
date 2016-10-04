@@ -10,4 +10,5 @@
     android:background="?attr/selectableItemBackground"
     android:gravity="center"
     app:emojiSize="30dp"
+    android:textSize="20dp"
     tools:ignore="Overdraw"/>

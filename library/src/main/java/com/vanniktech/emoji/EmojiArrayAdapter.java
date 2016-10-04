@@ -1,11 +1,8 @@
 package com.vanniktech.emoji;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import android.content.Context;
+import android.graphics.Paint;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +13,29 @@ import android.widget.TextView;
 import com.vanniktech.emoji.emoji.Emoji;
 import com.vanniktech.emoji.listeners.OnEmojiClickedListener;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 final class EmojiArrayAdapter extends ArrayAdapter<Emoji> {
     /** we need this because Arrays.asList does not support {@link Collection#clear()} */
     @SuppressWarnings("PMD.UseVarargs")
     private static List<Emoji> toList(final Emoji[] data) {
-        final List<Emoji> list = new ArrayList<>(data.length);
-        Collections.addAll(list, data);
+        final List<Emoji> list = new ArrayList<>();
+        Paint paint = new Paint();
+        for(Emoji emoji : data) {
+            //in marshmallow, this is the correct way to know whether an emoji is supported or not
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if(paint.hasGlyph(emoji.getEmoji())) {
+                    list.add(emoji);
+                }
+                continue;
+            }
+            if(Utils.isCharacterMissingInFont(emoji.getEmoji())){
+                continue;
+            }
+            list.add(emoji);
+        }
         return list;
     }
 
