@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import com.vanniktech.emoji.emoji.Emoji;
 import com.vanniktech.emoji.listeners.OnEmojiClickedListener;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 final class RecentEmojiGridView extends EmojiGridView {
@@ -21,7 +22,7 @@ final class RecentEmojiGridView extends EmojiGridView {
         this.recentEmojis = recentEmoji;
 
         final Collection<Emoji> emojis = recentEmojis.getRecentEmojis();
-        emojiArrayAdapter = new EmojiArrayAdapter(getContext(), emojis.toArray(new Emoji[emojis.size()]));
+        emojiArrayAdapter = new EmojiArrayAdapter(getContext(), new ArrayList<>(emojis));
         emojiArrayAdapter.setOnEmojiClickedListener(onEmojiClickedListener);
         this.setAdapter(emojiArrayAdapter);
 

@@ -45,7 +45,7 @@ public class EmojiEditText extends EditText {
 
     @Override
     protected void onTextChanged(final CharSequence text, final int start, final int lengthBefore, final int lengthAfter) {
-        EmojiHandler.addEmojis(getContext(), getText(), emojiSize);
+
     }
 
     public void setEmojiSize(final int pixels) {

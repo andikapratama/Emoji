@@ -1,9 +1,14 @@
 package com.vanniktech.emoji.emoji;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Symbols {
-    @SuppressFBWarnings("MS_MUTABLE_ARRAY") @SuppressWarnings("checkstyle:magicnumber") public static final Emoji[] DATA = new Emoji[]{
+    @SuppressFBWarnings("MS_MUTABLE_ARRAY")
+    @SuppressWarnings("checkstyle:magicnumber")
+    private static final Emoji[] DATA = new Emoji[]{
 //@formatter:off
         Emoji.fromChar((char) 0x2764),
         Emoji.fromCodePoint(0x1f49b),
@@ -231,7 +236,22 @@ public final class Symbols {
     };
     //@formatter:on
 
+
+    private static final List<Emoji> safeDATA = new ArrayList<>();
+
     private Symbols() {
         throw new AssertionError("No instances.");
+    }
+
+    //only return emoji's that the system glyph is available
+    public static List<Emoji> safeData() {
+        if (safeDATA.size() == 0) {
+            for (Emoji emoji : DATA) {
+                if (emoji.isSupported()) {
+                    safeDATA.add(emoji);
+                }
+            }
+        }
+        return safeDATA;
     }
 }
